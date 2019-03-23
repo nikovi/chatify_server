@@ -9,7 +9,7 @@ const date = moment().format("YYYY-MM-DD HH:mm:ss");
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    database: "fizzchat",
+    database: "chatify",
     password: "password"
 });
   
@@ -91,7 +91,7 @@ app.delete("/users", (req, res) => {
     })
 })
 
-//logout
+//signout de usuario
 app.post("/signout", (req, res) => {
     const {id_usuario} = req.body
     if(!id_usuario){

@@ -9,7 +9,7 @@ const date = moment().format("YYYY-MM-DD HH:mm:ss");
 const con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    database: "fizzchat",
+    database: "chatify",
     password: "password"
   });
   
@@ -29,9 +29,8 @@ app.get("/", (req, res) => {
 })
 
 //nuevo mensaje
-app.post("/messages/:id_usuario", (req, res) => {
-    const {id_usuario} = req.params;
-    const {cuerpo} = req.body;
+app.post("/messages", (req, res) => {
+    const {cuerpo, id_usuario} = req.body;
     if(!cuerpo || !id_usuario){
         return res.status(400).json('No data provided')
     }
@@ -44,7 +43,7 @@ app.post("/messages/:id_usuario", (req, res) => {
 })
 
 //actualizar mensaje leido
-app.put('/messages', (req, res) => {
+app.patch('/messages', (req, res) => {
     const {id_mensaje} = req.body;
     if(!id_mensaje){
         return res.status(400).json('no data provided')
@@ -53,7 +52,6 @@ app.put('/messages', (req, res) => {
         if(err){
             return res.status(400).json('Message has not been read')
         }
-        console.log(result)
         return res.status(200).json('Message has been read')
     })
 })

@@ -13,7 +13,7 @@ Una API es de usuarios y otra de mensajes, ambas persisten la data en una base d
 * localStorage
 * node-fetch
 
-*******BASE DE DATOS USUARIOS******
+**BASE DE DATOS USUARIOS**
 
   * Id de usuario
   * Nombre
@@ -24,12 +24,12 @@ Una API es de usuarios y otra de mensajes, ambas persisten la data en una base d
   * Fecha de actualizacion del usuario si este es modificado
   * Id status (con una foreign key que establece una relacion a otra tabla llamada "status_usuarios". Si el usuario esta desconectado esta vale 1 si esta conectado vale 2)
   
-  *******BASE DE DATOS STATUS_USUARIOS******
+**BASE DE DATOS STATUS_USUARIOS**
   
   * Id status (con una foreign key que establece una relacion a otra tabla llamada "usuarios". Si el usuario esta desconectado esta vale 1 si esta conectado vale 2)
   * Descripcion
   
-  *******BASE DE DATOS MENSAJES******
+  **BASE DE DATOS MENSAJES**
   
   * Id de mensaje
   * Cuerpo del mensaje
@@ -38,7 +38,7 @@ Una API es de usuarios y otra de mensajes, ambas persisten la data en una base d
   * Id del usuario que lo crea
   * Id status (con una foreign key que establece una relacion a otra tabla llamada "status_mensajes". Si el mensaje fue leido vale 1 si no fue leido aun vale 2)
   
-  *******BASE DE DATOS STATUS_MENSAJES******
+**BASE DE DATOS STATUS_MENSAJES**
   
   * Id status (con una foreign key que establece una relacion a otra tabla llamada "mensajes". Si el mensaje fue leido vale 1 si no fue leido aun vale 2)
   * Descripcion

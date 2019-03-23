@@ -4,7 +4,7 @@ El server cuenta con 2 APIs rest echas en NODE JS usando Express para las rutas.
 
 Una API es de usuarios y otra de mensajes, ambas persisten la data en una base de datos MySQL y luego son llamadas por el server usando node-fetch.
 
-LIBRERIAS UTILIZADAS
+*LIBRERIAS UTILIZADAS*
 * express
 * body-parser
 * mysql

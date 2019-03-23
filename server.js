@@ -27,14 +27,14 @@ app.get("/users", async (req, res) => {
 //register a new user
 app.post("/register", async (req, res) => {
 	const {nombre, apellido, nombre_de_usuario, email} = req.body
-	const registeredUser = await registerNewUser(nombre, apellido, nombre_de_usuario, email)
+	const registeredUser = await userHandlers.registerNewUser(nombre, apellido, nombre_de_usuario, email)
 	res.json(registeredUser);
 })
 
 //signin users
 app.post("/signin", async (req, res) => {
 	const email = req.body.email
-	const signedUser = await signInUser(email)
+	const signedUser = await userHandlers.signInUser(email)
 	res.json(signedUser)
 })
 

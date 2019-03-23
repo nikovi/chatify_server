@@ -2,7 +2,6 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const mysql = require('mysql')
 const moment = require('moment')
-const localStorage = require('localStorage')
 const cors = require('cors')
 
 const date = moment().format("YYYY-MM-DD HH:mm:ss");
@@ -12,21 +11,12 @@ const con = mysql.createConnection({
     user: "root",
     database: "fizzchat",
     password: "password"
-  });
+});
   
 const app = express();
 
 app.use(bodyParser.json())
 app.use(cors());
-
-const saveToLocalStorage = async (id_usuario, nombre_de_usuario, id_status) => {
-    let user = await {
-        id: id_usuario,
-        username: nombre_de_usuario,
-        idStatus: id_status
-    }
-    localStorage.setItem('userData', JSON.stringify(user))
-}
 
 // mostrar todos los usuarios
 app.get('/', (req, res) => {
@@ -56,13 +46,10 @@ app.post('/register', (req, res) => {
             if(err){
                 return res.status(500).json('Database error')
             }
-            const user = result[0];
             con.query(`UPDATE usuarios SET id_status = 2 WHERE id_usuario = '${result[0].id_usuario}'`, (err) => {
                 if(err){
                     return res.status(500).json('Update id_status failed')
                 }
-                let {id_usuario, nombre_de_usuario, id_status} = user;
-                saveToLocalStorage(id_usuario, nombre_de_usuario, id_status);
                 return res.status(200).json('Registered and signed in!')
             })
         })
@@ -81,13 +68,10 @@ app.post('/signin', function(req, res){
         }else if(!result[0]){
             return res.status(400).json('No such user in database')
         }
-        let user = result[0]
-        con.query(`UPDATE usuarios SET id_status = 2, actualizado_en = '${date}' WHERE id_usuario = '${user.id_usuario}'`, (err, result) => {
+        con.query(`UPDATE usuarios SET id_status = 2, actualizado_en = '${date}' WHERE id_usuario = '${result[0].id_usuario}'`, (err, result) => {
             if(err){
                 return res.status(500).json('Update id_status failed')
             }
-            let {id_usuario, nombre_de_usuario, id_status} = user;
-            saveToLocalStorage(id_usuario, nombre_de_usuario, id_status);
             return res.status(200).json('Signed in!')
         })
     })
@@ -117,8 +101,6 @@ app.post("/signout", (req, res) => {
         if(err){
             return res.status(500).json('Not able to logout')
         }
-        console.log(result)
-        localStorage.clear();
         return res.status(200).json('user has signed out')
     })
 })
@@ -132,4 +114,3 @@ con.connect(err =>  {
         console.log('Users API up on port 8080')
     })
 });
-

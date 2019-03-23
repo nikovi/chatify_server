@@ -1,41 +1,38 @@
-const fetch = require('node-fetch')
+const axios = require('axios')
 
 const userApiUrl = "http://localhost:8080"
 //show users
 exports.showUsers = async () => {
-    const apiCall = await fetch(userApiUrl)
-    const jsonData = await apiCall.json()
-    return jsonData;
+    try{
+        const apiCall = await axios.get(userApiUrl)
+        return apiCall.data;
+    }catch(err){
+        console.log(err) 
+    }
 }
 
 //register users
 exports.registerNewUser = async (nombre, apellido, nombre_de_usuario, email) => {
-	const newUser = {
-		nombre,
-		apellido, 
-		nombre_de_usuario,
-		email
-	}
-	const apiCall = await fetch(userApiUrl+"/register", {
-		method: 'post',
-		body: JSON.stringify(newUser),	
-		headers: {
-			"content-type": "application/json"
-		}
-	})
-	const response = await apiCall.json()
-	return response
+    try{
+        const apiCall = await axios.post(userApiUrl+"/register",{
+            nombre, 
+            apellido,
+            nombre_de_usuario,
+            email
+        })
+        return apiCall.data;
+    }catch(err){
+        console.log(err)
+    }
+        
 }
 
 //signin users
 exports.signInUser = async (email) => {
-	const apiCall = await fetch(userApiUrl+"/signin", {
-		method: 'post',
-		body: JSON.stringify({email}),
-		headers: {
-			"content-type": "application/json"
-		}
-	})
-	const response = await apiCall.json()
-	return response;
+    try{
+        const apiCall = await axios.post(userApiUrl+"/signin",{email})
+        return apiCall.data;
+    }catch(err){
+        console.log(err);
+    }
 }
